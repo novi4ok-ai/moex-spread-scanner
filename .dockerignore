@@ -1,0 +1,9 @@
+.git
+.venv
+.env
+tests
+.pre-commit-config.yaml
+Makefile
+__pycache__
+*.pyc
+.pytest_cache
