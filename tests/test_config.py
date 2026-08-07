@@ -6,7 +6,7 @@ from moex_spread_scanner.config import Settings
 
 
 @pytest.fixture(autouse=True)
-def _no_dotenv(monkeypatch: pytest.MonkeyPatch) -> None:
+def no_dotenv(monkeypatch: pytest.MonkeyPatch) -> None:
     """Keep tests independent from a developer's local .env file."""
     monkeypatch.setenv("SCANNER_ENV_FILE", "/dev/null")
 
