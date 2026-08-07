@@ -1,5 +1,7 @@
 """Application settings: single source of truth, env-overridable."""
 
+import os
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,7 +9,7 @@ class Settings(BaseSettings):
     """Runtime configuration, overridable via environment or .env file."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=os.environ.get("SCANNER_ENV_FILE", ".env"),
         env_prefix="SCANNER_",
         extra="ignore",
     )
