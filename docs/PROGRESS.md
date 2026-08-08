@@ -16,10 +16,10 @@ green; **no implementation work has started yet** — there is no ISS client, no
 database code and no scanner logic. The next work item is the ISS client
 (`docs/SPEC.md` §3).
 
-- In flight: nothing. The working tree is clean and `main` is green.
+- In flight: nothing. The working tree is clean.
 - Blocked on: nothing.
-- Last verified green: `main` at pull request #5 — `make check` locally, both
-  required CI checks (`checks`, `image`) green. Run `git log -1` for the exact
+- Verification: `main` is green by construction — the ruleset lets nothing merge
+  without both required checks passing. Locally, `make check` before every
   commit.
 
 ## Next
@@ -97,6 +97,12 @@ when its work item is touched, not as a separate cleanup pass.
 - The README statement required by §10 (a human checks corporate events before
   acting on a candidate) is a v0.1.0 release gate, deliberately not written yet:
   there is nothing to disclaim until the scanner runs.
+- Collapsing `CLAUDE.md`, `docs/SPEC.md` and this file into one document was
+  considered on 2026-08-08 and rejected. `CLAUDE.md` is loaded automatically on
+  every turn, so folding the spec into it would spend context on 400 lines of
+  specification in every request; and merging the spec with this file would
+  erase the boundary between stable authority and volatile state, taking with it
+  both the "change the spec in its own pull request" rule and the length cap.
 
 ## Infrastructure state
 
@@ -106,5 +112,7 @@ when its work item is touched, not as a separate cleanup pass.
 - Repository auto-merge was enabled on 2026-08-08, so the normal flow is
   `gh pr merge --auto --squash` followed by `gh pr checks --watch`.
 - Merged branches are not deleted automatically
-  (`delete_branch_on_merge = false`); `docs/spec` is still present locally and
-  on the remote.
+  (`delete_branch_on_merge = false`), so delete them by hand:
+  `git push origin --delete <branch>`, then `git branch -D <branch>` locally —
+  `-d` refuses, because a squash merge leaves the branch tip unreachable from
+  `main` even though its content is there.
