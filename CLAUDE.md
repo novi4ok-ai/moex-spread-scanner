@@ -5,6 +5,29 @@ MOEX spread scanner: finds statistically abnormal price deviations in related
 instrument pairs (common/preferred shares), ranked by z-score. Python 3.12,
 uv-managed, strict typing, PostgreSQL storage, Docker delivery.
 
+## Start here
+- `docs/PROGRESS.md` — where the project stands, what is in flight, what comes
+  next. Read it before doing anything else in a new session: nothing guarantees
+  that context from the previous one survived.
+- `docs/SPEC.md` — the accepted v0.1 specification (universe, ISS endpoints,
+  database schema, computation rules, scan behaviour, scheduling). Authoritative
+  for every implementation decision; Appendix A records why each ambiguous part
+  was resolved the way it was. If code and spec disagree, the spec wins — change
+  the spec first, in its own pull request.
+
+## Progress log
+- `docs/PROGRESS.md` is updated in the same commit as the work it describes,
+  never as a separate follow-up commit.
+- Update `## Now` when you *start* or *change* a work item, not only when you
+  finish one. An interrupted session must still leave usable state behind.
+- `## Now` and `## Next` are overwritten; `## Done` is appended to, one terse
+  line per finished item with its pull request number.
+- Record decisions, rejected options and dead ends that the code does not show.
+  Do not restate git history — `git log` already covers what changed.
+- Absolute dates (`YYYY-MM-DD`), never "yesterday" or "last week".
+- Keep the file readable in one pass (~150 lines). Prune stale detail from
+  `## Done` instead of letting it grow.
+
 ## Non-negotiable workflow
 - `make check` must be green before every commit. Red check = no commit.
 - All changes reach `main` only via pull request with green CI
